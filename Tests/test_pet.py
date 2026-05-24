@@ -48,7 +48,7 @@ class TestPet:
         with allure.step("Подготовка данных для создания питомца"):
             payload = {
                 "id": 10,
-                "name": "doggi",
+                "name": "doggie",
                 "category": {
                     "id": 1,
                     "name": "Dogs"
