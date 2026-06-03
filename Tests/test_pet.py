@@ -133,3 +133,24 @@ class TestPet:
             assert response_data["id"] == pet_id
             assert response_data["name"] == "Buddy Updated"
             assert response_data["status"] == "sold"
+
+    @allure.title("Удаление питомца")
+    def test_delete_pet(self, create_pet):
+        with allure.step("Получение ID созданного питомца"):
+                pet_id = create_pet["id"]
+
+        with allure.step("Отправка DELETE-запроса"):
+                response = requests.delete(
+                    f"{BASE_URL}/pet/{pet_id}"
+                )
+
+        with allure.step("Проверка успешного удаления"):
+            assert response.status_code == 200
+
+        with allure.step("Получение удалённого питомца"):
+            get_response = requests.get(
+                f"{BASE_URL}/pet/{pet_id}"
+            )
+
+        with allure.step("Проверка, что питомец не найден"):
+            assert get_response.status_code == 404
